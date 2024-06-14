@@ -166,3 +166,7 @@ cython_debug/
 .01_BASICS/ipynb_checkpoints
 .01_BASICS/IMG/ipynb_checkpoints
 .01_BASICS/DATA/ipynb_checkpoints
+.02_RGB_MATRIX/ipynb_checkpoints
+.02_RGB_MATRIX/IMG/ipynb_checkpoints
+.02_RGB_MATRIX/DATA/ipynb_checkpoints
+.02_RGB_MATRIX/VIDEOS/ipynb_checkpoints

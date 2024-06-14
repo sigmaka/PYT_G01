@@ -1,0 +1,15 @@
+# Kommentar
+{DATEI}
+autor = P. Helfenstein
+zeitstempel = 22.09.18 15:30:45
+
+{DEFAULT}
+# Kommentar
+[0,0,0]
+# <r=0, g=0, b=0>
+
+
+{MATRIX}
+[0][6] = [0,0,10]
+[5][1] = <r=15, g=0, b=0>
+[2][2] = <g=20>
