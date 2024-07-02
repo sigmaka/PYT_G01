@@ -2,22 +2,20 @@ from abbts_blp.rgb import RgbFpga
 import time  # wird benötigt für zeitliche Aspekte
 
 
-def create_matrix(matrix, anzahl_durchlaeufe=2, laenge_snake=4, zeit=0.1, farbe_snake=(5, 5, 5), farbe_spur=(1, 0, 0)):
+def create_matrix(matrix, zeit=0.5, anzahl_durchlaeufe=2, laenge_snake=4, farbe_snake=(5, 5, 5), farbe_spur=(0, 0, 0)):
     """
     Funktion für das Erstellen der gewünschten Lichtbilder auf der RGB-Matrix.
-    :param matrix: Matrix-Objekt der Klasse RGB_FPGA
+    :param matrix: Matrix-Objekt der Klasse RgbFpga
+    :param zeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.5s
     :param anzahl_durchlaeufe: Vorgabe Anzahl Gesamt-Durchläufe, Standard = 2
-    :param laenge_snake: Vorgabe Anzahl RGB's für Schlange, Standard = 4 <= 64
-    :param zeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.1s
-    :param farbe_snake: Farbton Schlange, Standard = [5, 5, 5]
-    :param farbe_spur: Farbton Schlangenspur, Standard = [1, 0, 0]
+    :param laenge_snake: Vorgabe Anzahl RGB's für Schlange, Standard = 4 (<= 64)
+    :param farbe_snake: Farbton Schlange, Standard = (5, 5, 5)
+    :param farbe_spur: Farbton Schlangenspur, Standard = (0, 0, 0)
     Konzept:
     Zwei Schlangen die einander hinterher kriechen. Start der zweiten Schlange ist um die Länge der ersten Schlange
     verzögert.
     """
     anzahl_rgb_total = 64  # Anzahl RGB pro Matrix
-    # zeilennummer = 0
-    # spaltennummer = 0
 
     for n in range(anzahl_durchlaeufe):
 
@@ -64,8 +62,7 @@ def create_matrix(matrix, anzahl_durchlaeufe=2, laenge_snake=4, zeit=0.1, farbe_
 
 
 if __name__ == '__main__':
-
     rgb = RgbFpga(port='COM15')
     rgb.open()
-    create_matrix(matrix=rgb)
+    create_matrix(matrix=rgb, zeit=0.1, farbe_spur=(1, 0, 0))
     rgb.close()

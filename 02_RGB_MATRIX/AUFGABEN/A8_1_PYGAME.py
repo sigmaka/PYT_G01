@@ -47,7 +47,6 @@ def draw(canvas, row, column, color):
     for i in range(60, 480, 60):
         pygame.draw.line(canvas, GREY, (0, i), (480, i), 1)
         pygame.draw.line(canvas, GREY, (i, 0), (i, 480), 1)
-
     pygame.draw.circle(canvas, color, ((column * 60) + 30, (row * 60) + 30), 25, 0)
 
 
@@ -74,5 +73,5 @@ def main(matrix, startpunkt=(0, 0)):
 
 
 if __name__ == '__main__':
-    rgb = RgbFpga(port='COM4')
+    rgb = RgbFpga(port='COM15')
     main(matrix=rgb, startpunkt=[5, 5])

@@ -2,14 +2,14 @@ from abbts_blp.rgb import RgbFpga
 import time
 
 
-def create_matrix(matrix, horizontal=False, anzahl_rgb_durchlaufen=64, leuchtzeit=0.1,
+def create_matrix(matrix, zeit=0.5, horizontal=True, anzahl_rgb_durchlaufen=64,
                   farbe=(0, 10, 0), leuchtabschwaechung=0.1):
     """
     Funktion für das Erstellen der gewünschten Lichtbilder auf der RGB-Matrix.
-    :param matrix: Matrix-Objekt der Klasse RGB_FPGA
-    :param horizontal: Umschaltung horizontaler vs. vertikaler Verlauf, Standard = 0.1s
+    :param matrix: Matrix-Objekt der Klasse Rgb_Fpga
+    :param zeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.5s
+    :param horizontal: Umschaltung horizontaler vs. vertikaler Verlauf, Standard: True (horizontal)
     :param anzahl_rgb_durchlaufen: Vorgabe Anzahl RGB's, Standard = 64 (komplette Matrix)
-    :param leuchtzeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.1s
     :param farbe: Farbton, Standard = [0, 10, 0]
     :param leuchtabschwaechung: Faktor zur Reduktion der nachlaufenden RGB's, Standard = 0.1
     """
@@ -17,8 +17,6 @@ def create_matrix(matrix, horizontal=False, anzahl_rgb_durchlaufen=64, leuchtzei
     farbe_reduzierte_leuchtkraft = []
     for wert in farbe:
         farbe_reduzierte_leuchtkraft.append(int(wert * leuchtabschwaechung))
-    zeilennummer = 0
-    spaltennummer = 0
 
     for i in range(0, anzahl_rgb_durchlaufen, 1):  # komplette Anzahl RBG's durchlaufen -> RBG leuchten
         m = i % anzahl_rgb_total  # Vorbereitung Anzahl Durchläufe = 0 ... anzahl_rgb_komplett-1
@@ -51,13 +49,12 @@ def create_matrix(matrix, horizontal=False, anzahl_rgb_durchlaufen=64, leuchtzei
                     zeilennummer -= 1
                 matrix.rgb_matrix[zeilennummer][spaltennummer] = farbe_reduzierte_leuchtkraft
         matrix.write()
-        time.sleep(leuchtzeit)
+        time.sleep(zeit)
 
 
 if __name__ == '__main__':
-
     rgb = RgbFpga(port='COM15')
-    anzahl_RGB = 64  # wieviele RGB sollen durchlaufen werden?
+    anzahl_RGB = 64  # wie viele RGB sollen durchlaufen werden?
     rgb.open()
-    create_matrix(matrix=rgb, anzahl_rgb_durchlaufen=anzahl_RGB, leuchtzeit=0.05)
+    create_matrix(matrix=rgb, anzahl_rgb_durchlaufen=anzahl_RGB, zeit=0.1)
     rgb.close()

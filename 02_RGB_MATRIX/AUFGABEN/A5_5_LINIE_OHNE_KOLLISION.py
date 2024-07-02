@@ -10,7 +10,7 @@ def check_position(matrix, new_position, farbe):
     - Farbgebung
     :param new_position: Zeilen- und Spaltennummer der zur überprüfenden neuen Position, [i, j]
     :param farbe: Farbkodierung RGB, [R, G, B]
-    :param matrix: aktuell bearbeitete Matrix, wird für Farbgebungs-Überprüfung verwendet
+    :param matrix: aktuell bearbeitete Matrix, wird für Überprüfung verwendet
     :return: new_position_ok, Bool
     '"""
     new_position_ok = False
@@ -50,13 +50,13 @@ def listen_operationen(liste_1, liste_2, operation='+'):
     return liste_neu
 
 
-def main(matrix, zeit=0.1, farbe=(0, 10, 0), startpunkt=(5, 3), startrichtung=(0, 0, 1, 0)):
+def main(matrix, zeit=0.5, farbe=(10, 10, 10), startpunkt=(5, 3), startrichtung=(0, 0, 1, 0)):
     """
     Funktion für das Erstellen der gewünschten Lichtbilder auf der RGB-Matrix.
-    :param matrix: Matrix-Objekt der Klasse RGB_FPGA
-    :param zeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.1s
-    :param farbe: Farbton, Standard = [1, 0, 0]
-    :param startpunkt: Startpunkt der Linie, Standard = [2, 3] (Zeile und Spalte)
+    :param matrix: Matrix-Objekt der Klasse RgbFpga
+    :param zeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.5s
+    :param farbe: Farbton, Standard = (10, 10, 10)
+    :param startpunkt: Startpunkt der Linie, Standard = [5, 3] (Zeile und Spalte)
     :param startrichtung: Startrichtung der Linie, Standard = [0, 0, 1, 0] [Nord, Ost, Süd, West]
     """
     # Startwert und Startrichtung setzen
@@ -76,7 +76,6 @@ def main(matrix, zeit=0.1, farbe=(0, 10, 0), startpunkt=(5, 3), startrichtung=(0
     time.sleep(zeit)
 
     aktuelle_position = [zeilennummer, spaltennummer]
-    neue_moegliche_position = aktuelle_position
 
     while weiterfahren:
         # aufgrund Richtung, entsprechender Richtungsvektor bestimmen
@@ -102,8 +101,6 @@ def main(matrix, zeit=0.1, farbe=(0, 10, 0), startpunkt=(5, 3), startrichtung=(0
 
         else:
             anzahl_checks += 1
-            # neue mögliche Position wieder rückgängig machen, da Richtungsschritt zu einer ungültigen Position führte
-            neue_moegliche_position = listen_operationen(aktuelle_position, richtungsschritt, operation='-')
             # Richtungsvektor gemäss Kurvenvorgabe drehen
             richtung_neu = [0, 0, 0, 0]
             for i in range(len(richtung)):
@@ -113,16 +110,14 @@ def main(matrix, zeit=0.1, farbe=(0, 10, 0), startpunkt=(5, 3), startrichtung=(0
                     richtung_neu[i] = richtung[(i + 1) % 4]  # Shift left
             richtung = richtung_neu
         # nach dreimaligem, an gleicher Ursprungsposition, durchgeführtem, erfolglosen Überprüfen der neuen möglichen
-        # Position wird Weiterfahrt abgebrochen, da Weiterfahrt unmöglich ist.
-        if anzahl_checks > 2:  # >2, aufgrund möglichem Spezialfall: Start [7,7], richtung [0,1,0,0], kurve_rechts=True
+        # Position wird Fahrt abgebrochen, da Weiterfahrt unmöglich ist.
+        if anzahl_checks > 2:  # >2, aufgrund möglichen Spezialfalls: Start [7,7], richtung [0,1,0,0], kurve_rechts=True
             weiterfahren = False
 
 
 if __name__ == '__main__':
-
     rgb = RgbFpga(port='COM15')
     rgb.open()
     rgb.write()
-    time.sleep(2)
-    main(matrix=rgb, startpunkt=(random.randint(0,7), random.randint(0,7)))
+    main(matrix=rgb, zeit=0.1, startpunkt=(random.randint(0, 7), random.randint(0, 7)))
     rgb.close()

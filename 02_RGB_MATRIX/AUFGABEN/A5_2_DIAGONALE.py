@@ -3,11 +3,11 @@ import time  # wird benötigt für zeitliche Aspekte
 import random  # wird benötigt für Zufallszahlen
 
 
-def create_matrix(matrix, zeit=0.1, anzahl_durchlaeufe=6, max_leuchtkraft=10, anzahl_diagonalen=15):
+def create_matrix(matrix, zeit=0.5, anzahl_durchlaeufe=4, max_leuchtkraft=10, anzahl_diagonalen=15):
     """
     Funktion für das Erstellen der gewünschten Lichtbilder auf der RGB-Matrix.
     :param matrix: Matrix-Objekt der Klasse RGB_FPGA
-    :param zeit: zeitliche Verzögerung für den dynamischen Ablauf, Standard = 0.1s
+    :param zeit: Verzögerung für den dynamischen Ablauf, Standard = 0.5 s
     :param anzahl_durchlaeufe: Vorgabe Anzahl Gesamt-Durchläufe, Standard = 4
     :param max_leuchtkraft: Vorgabe der maximalen Leuchtkraft, Standard = 10
     :param anzahl_diagonalen: Vorgabe Anzahl zu durchlaufende Diagonalen pro Durchlauf, Standard = 15
@@ -35,8 +35,8 @@ def create_matrix(matrix, zeit=0.1, anzahl_durchlaeufe=6, max_leuchtkraft=10, an
     max_leuchtkraft = check_limits(max_leuchtkraft, 1, 50, 10)
     anzahl_diagonalen = check_limits(anzahl_diagonalen, 0, 15, 15)
 
-    # Erstellen der Farbenliste
-    farben = create_farbenliste(anzahl_durchlaeufe, max_leuchtkraft)
+    # Erstellen der Farbliste
+    farben = create_farbliste(anzahl_durchlaeufe, max_leuchtkraft)
 
     for k in range(anzahl_durchlaeufe):
         summe = 0
@@ -51,7 +51,7 @@ def create_matrix(matrix, zeit=0.1, anzahl_durchlaeufe=6, max_leuchtkraft=10, an
             time.sleep(zeit)
 
 
-def create_farbenliste(anzahl_durchlaeufe, max_leuchtkraft):
+def create_farbliste(anzahl_durchlaeufe, max_leuchtkraft):
     """
     Funktion für das Erstellen einer Farbliste für die unterschiedlichen Durchläufe.
     Durchlauf:1          2           3             4     usw.
@@ -71,7 +71,7 @@ def create_farbenliste(anzahl_durchlaeufe, max_leuchtkraft):
             leuchtkraft = random.randint(1, max_leuchtkraft)  # Leuchtkraft definieren
             rgb_farbe[farbe] = leuchtkraft
         else:
-            rgb_farbe = [0, 0, 0]  # jeder 2. Durchgang wird Matrix resetiert
+            rgb_farbe = [0, 0, 0]  # jeder 2. Durchgang wird Matrix zurückgesetzt
         farben.append(rgb_farbe)
     return farben
 
@@ -93,8 +93,7 @@ def check_limits(variable, minimum, maximum, standard):
 
 
 if __name__ == '__main__':
-
     rgb = RgbFpga(port='COM15')
     rgb.open()
-    create_matrix(matrix=rgb)
+    create_matrix(matrix=rgb, zeit=0.1)
     rgb.close()

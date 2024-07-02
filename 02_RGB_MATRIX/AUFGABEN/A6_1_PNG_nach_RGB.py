@@ -1,5 +1,5 @@
 from abbts_blp.rgb import RgbFpga
-import cv2 as cv2
+import cv2 as cv
 
 
 def create_matrix(matrix, filename='', max_leuchtkraft=5):
