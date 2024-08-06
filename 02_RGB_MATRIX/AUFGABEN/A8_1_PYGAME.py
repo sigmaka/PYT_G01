@@ -8,28 +8,26 @@ GREEN = [0, 100, 0]
 BLUE = [0, 0, 100]
 GREY = [50, 50, 50]
 
-FPS = 30
-
 
 def get_event(row, column, color):
     stop = False
     for event in pygame.event.get():
-        if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+        if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):  # Fenster schliessen/Taste ESCAPE
             stop = True
         elif event.type == KEYDOWN:
-            if event.key == K_LEFT:
+            if event.key == K_LEFT:  # Pfeiltaste links
                 column -= 1
                 if column < 0:
                     column = 0
-            elif event.key == K_RIGHT:
+            elif event.key == K_RIGHT:  # Pfeiltaste rechts
                 column += 1
                 if column > 7:
                     column = 7
-            elif event.key == K_DOWN:
+            elif event.key == K_DOWN:  # Pfeiltaste runter
                 row += 1
                 if row > 7:
                     row = 7
-            elif event.key == K_UP:
+            elif event.key == K_UP:  # Pfeiltaste hoch
                 row -= 1
                 if row < 0:
                     row = 0
@@ -56,6 +54,7 @@ def main(matrix, startpunkt=(0, 0)):
     color = GREEN
 
     end = False
+    fps = 50  # frames per second
     pygame.init()
     canvas = pygame.display.set_mode((480, 480))  # Fenstergrösse
     clock = pygame.time.Clock()
@@ -63,15 +62,17 @@ def main(matrix, startpunkt=(0, 0)):
     while not end:
         matrix.rgb_matrix = matrix.init_rgb_matrix()  # resetting der Matrix auf [0, 0, 0]
         matrix.rgb_matrix[row][column] = color
+        matrix.write()
         draw(canvas, row, column, color)
         row, column, color, end = get_event(row, column, color)
         pygame.display.update()
-        clock.tick(FPS)
-
-    pygame.quit()
-    sys.exit()
+        clock.tick(fps)
 
 
 if __name__ == '__main__':
-    rgb = RgbFpga(port='COM15')
+    rgb = RgbFpga(port='COM5')
+    rgb.open()
     main(matrix=rgb, startpunkt=[5, 5])
+    rgb.close()
+    pygame.quit()
+    sys.exit()

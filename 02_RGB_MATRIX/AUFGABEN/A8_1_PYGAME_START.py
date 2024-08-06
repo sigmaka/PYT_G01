@@ -69,13 +69,11 @@ def main():
         clock.tick(fps)
         pygame.display.set_caption("A8_1_PYGAME | fps: " + "{:.1f}".format(clock.get_fps()))
 
-    pygame.quit()
-    sys.exit()
-
 
 if __name__ == '__main__':
     main()
-
+    pygame.quit()
+    sys.exit()
 
 '''
 Weblinks:

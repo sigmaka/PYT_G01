@@ -1,5 +1,5 @@
 from abbts_blp.rgb import RgbFpga
-import cv2 as cv2
+import cv2 as cv
 import time
 
 
@@ -13,7 +13,7 @@ def create_matrix(matrix, filename='', max_leuchtkraft=5, zeit=0.1):
     :param max_leuchtkraft: Definition der maximalen Leuchtkraft pro Farbe, Standard = 5
     :param zeit: Zeitvorgabe Durchlauf (je höher, desto langsamer), Standard = 0.1s
     """
-    im = cv2.imread(filename)
+    im = cv.imread(filename)  # ACHTUNG: OpenCV benutzt den BGR- anstelle des RGB-Farbraums
     height, width = im.shape[0:2]  # Bildgrösse auslesen (Höhe x Breite)
 
     for start in range(0, height - 8 + 1, 1):  # Startpunkt der einzelnen Ausschnitte
@@ -33,11 +33,9 @@ def create_matrix(matrix, filename='', max_leuchtkraft=5, zeit=0.1):
 
 
 if __name__ == '__main__':
-    print('_FINAL_AUFGABE_6_3.py => __main__')
-    rgb = RgbFpga(port='COM4')
-    grafikdatei = 'png/aufgabe_6_2.png'
+    rgb = RgbFpga(port='COM5')
+    grafikdatei = '../IMG/aufgabe_6_2.png'
     maximale_leuchtkraft = 2
-    dauer = 0.5
     rgb.open()
-    create_matrix(matrix=rgb, filename=grafikdatei, max_leuchtkraft=maximale_leuchtkraft, zeit=dauer)
+    create_matrix(matrix=rgb, filename=grafikdatei, max_leuchtkraft=maximale_leuchtkraft, zeit=0.25)
     rgb.close()
