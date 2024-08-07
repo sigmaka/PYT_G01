@@ -18,11 +18,10 @@ def get_event(offset):
     Eventhandler
     """
     # global offset
+    stop = False
     for event in pygame.event.get():
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-            pygame.quit()
-            print("exit")
-            sys.exit()
+            stop = True
         elif event.type == KEYDOWN:
             if event.key == K_DOWN:
                 offset += 1
@@ -32,7 +31,7 @@ def get_event(offset):
                 offset -= 1
                 if offset < 0:
                     offset = 0
-    return offset
+    return offset, stop
 
 
 def read_image(filename=''):
@@ -41,7 +40,6 @@ def read_image(filename=''):
     """
     im = cv2.imread(filename)
     height, width = im.shape[0:2]
-    print(width, height)
     image_matrix = []
     for i in range(0, height, 1):
         led = []
@@ -55,7 +53,6 @@ def read_image(filename=''):
         for j in range(0, width, 1):
             b, g, r = im[i][j]  # BGR-Farbraum!
             image_matrix[i][j] = [r, g, b]
-    print(len(image_matrix))
     return image_matrix
 
 
@@ -78,14 +75,14 @@ def main(matrix, filename='', offset=0, max_leuchtkraft=5, window_position=(1, 3
     """
     Hauptfunktion
     """
-    x = window_position[0]
-    y = window_position[1]
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x, y)
-
+    #x = window_position[0]
+    #y = window_position[1]
+    #os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x, y)
+    offset = 0
     end = False
     fps = 50  # frames per second
     pygame.init()
-    canvas = pygame.display.set_mode((480, 480))  # Fenstergrösse
+    canvas = pygame.display.set_mode((240, 960))  # Fenstergrösse
     clock = pygame.time.Clock()
     image_matrix = read_image(filename=filename)
 
@@ -103,15 +100,17 @@ def main(matrix, filename='', offset=0, max_leuchtkraft=5, window_position=(1, 3
                 matrix.rgb_matrix[j - offset][i] = [r, g, b]
         matrix.write()
         draw(canvas, image_matrix, offset)
-        offset = get_event(offset)
+        offset, end = get_event(offset)
         pygame.display.update()
         clock.tick(fps)
         pygame.display.set_caption("_FINAL_AUFGABE_8_3.py | fps: " + "{:.1f}".format(clock.get_fps()))
 
 
 if __name__ == '__main__':
-    rgb = RgbFpga(port='COM4')
+    rgb = RgbFpga(port='COM5')
     grafikdatei = '../IMG/aufgabe_6_2.png'
     rgb.open()
     main(matrix=rgb, filename=grafikdatei)
     rgb.close()
+    pygame.quit()
+    sys.exit()

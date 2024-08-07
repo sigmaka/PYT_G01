@@ -94,9 +94,9 @@ def main(matrix, startpunkt=(0, 0), window_position=(1, 30)):
     """
     Hauptfunktion
     """
-    x = window_position[0]
-    y = window_position[1]
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x, y)
+    #x = window_position[0]
+    #y = window_position[1]
+    #os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x, y)
 
     mouse_x = startpunkt[0]
     mouse_y = startpunkt[1]
@@ -131,7 +131,7 @@ def main(matrix, startpunkt=(0, 0), window_position=(1, 30)):
 
 
 if __name__ == '__main__':
-    rgb = RgbFpga(port='COM15')
+    rgb = RgbFpga(port='COM5')
     rgb.open()
     main(matrix=rgb, startpunkt=[5, 5])
     rgb.close()
