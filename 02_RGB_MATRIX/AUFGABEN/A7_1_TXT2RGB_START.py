@@ -27,11 +27,11 @@ if __name__ == '__main__':
     print('strip: ', text_strip)
     text_replace = text.replace(' ', '')  # z.B. entfernen von allen Leerzeichen
     print('replace: ', text_replace)
-    text_lower = text.lower()  # Unwandlung in Kleinbuchstaben
+    text_lower = text.lower()  # Umwandlung in Kleinbuchstaben
     print('lower: ', text_lower)
-    print('find: ', text.find('_'))  # suchen von Zeichen, falls nicht vorhanden -> -1
+    print('find: ', text.find('_'))  # suchen von Zeichen, falls nicht vorhanden → -1
     print('split: ', text.split())  # trennt String in eine Liste von Einzelstrings auf,
-    # Standardtrennzeichen: Leerzeichen, kann aber auch parametriert werden '_'
+    # Standardtrennzeichen: Leerzeichen (kann aber auch parametriert werden '_')
 
     # Einige Weblinks
     # https://www.python-kurs.eu/python3_dateien.php

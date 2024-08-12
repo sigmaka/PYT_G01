@@ -100,8 +100,8 @@ def main(matrix, startpunkt=(0, 0), window_position=(1, 30)):
 
     mouse_x = startpunkt[0]
     mouse_y = startpunkt[1]
-    mouse_x_clk = mouse_x
-    mouse_y_clk = mouse_y
+    mouse_x_clk = -1
+    mouse_y_clk = -1
     rgb_color = GREEN
 
     end = False

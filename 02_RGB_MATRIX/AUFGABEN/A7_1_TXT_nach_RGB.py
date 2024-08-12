@@ -31,26 +31,28 @@ def rgb_value_string_to_number(val_str):
         except ValueError:
             value = 0  # im Fehlerfall value = 0 setzen
     else:
+        value = 0
         print('Definition unbekannt: Wert = 0 gesetzt!')
+
     return value
 
 
 def rgb_farbe(farben):
     """
     Funktion zur Auslesung der Farbdefinition
-    2 mögliche Definitionen: [0,1,0] oder <r=0,g=1,b=0>
+    2 mögliche Definitionen: [0, 1, 0] oder <r=0, g=1, b=0>
     :param farben: Zeichenkette (String) zur Umwandlung
     :return rgb_value: korrekte Farbdefinition
     """
     rgb_value = [0, 0, 0]
-    eintraege = farben[1:-1].split(',')  # String in Einzelstrings mit Trennzeichen , auftrennen
+    eintraege = farben[1:-1].split(',')  # String in Einzelstrings mit Trennzeichen auftrennen
     if eintraege[0].isdigit():  # Variante []
         rgb_value[0] = rgb_value_string_to_number(eintraege[0])
         rgb_value[1] = rgb_value_string_to_number(eintraege[1])
         rgb_value[2] = rgb_value_string_to_number(eintraege[2])
     elif '=' in eintraege[0]:  # Variante <>
         for eintrag in eintraege:
-            gleich_r = eintrag.find('r=')  # falls Teilstring nicht enthalten ist wird -1 zurückgegeben
+            gleich_r = eintrag.find('r=')  # falls Teilstring nicht enthalten ist, wird -1 zurückgegeben
             gleich_g = eintrag.find('g=')
             gleich_b = eintrag.find('b=')
             if gleich_r != (-1):
@@ -103,17 +105,8 @@ def parser_rgb_file(matrix, filename):
 
 
 if __name__ == '__main__':
-    print('_FINAL_AUFGABE_7_1.py => __main__')
-    rgb = RgbFpga(port='COM4')
-    textdatei = 'data/rgb_data.txt'
+    rgb = RgbFpga(port='COM5')
+    textdatei = '../DATA/rgb_data.txt'
     rgb.open()
-    parser_rgb_file(matrix=rgb, filename=textdatei)  # Hauptfunktion
+    parser_rgb_file(matrix=rgb, filename=textdatei)
     rgb.close()
-
-    # Einige Weblinks
-    # https://www.python-kurs.eu/python3_dateien.php
-    # https://www.w3schools.com/python/python_file_handling.asp
-    # https://docs.python.org/3/library/functions.html#open
-    # https://codefather.tech/blog/python-with-open/
-    # https://realpython.com/python-with-statement/#using-the-python-with-statement
-    # https://www.geeksforgeeks.org/with-statement-in-python/

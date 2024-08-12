@@ -29,7 +29,6 @@ def create_matrix(matrix, filename='', max_leuchtkraft=5):
 
 
 if __name__ == '__main__':
-    print(__name__)
     rgb = RgbFpga(port='COM5')
     grafikdatei = '../IMG/aufgabe_6_1.png'
     maximale_leuchtkraft = 2

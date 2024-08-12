@@ -17,7 +17,6 @@ def get_event(offset):
     """
     Eventhandler
     """
-    # global offset
     stop = False
     for event in pygame.event.get():
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
@@ -75,10 +74,9 @@ def main(matrix, filename='', offset=0, max_leuchtkraft=5, window_position=(1, 3
     """
     Hauptfunktion
     """
-    #x = window_position[0]
-    #y = window_position[1]
-    #os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x, y)
-    offset = 0
+    # x = window_position[0]
+    # y = window_position[1]
+    # os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x, y)
     end = False
     fps = 50  # frames per second
     pygame.init()
