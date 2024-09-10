@@ -170,3 +170,6 @@ cython_debug/
 .02_RGB_MATRIX/IMG/ipynb_checkpoints
 .02_RGB_MATRIX/DATA/ipynb_checkpoints
 .02_RGB_MATRIX/VIDEOS/ipynb_checkpoints
+_build
+binder.txt
+call_python_portable_jupyter.bat

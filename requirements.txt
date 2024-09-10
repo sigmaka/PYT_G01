@@ -1,1 +1,7 @@
 abbts-blp==0.0.6
+jupyter-book
+matplotlib
+numpy
+ipywidgets
+tkinter
+PyQt5

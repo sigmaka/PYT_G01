@@ -1,0 +1,43 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: 00_Intro
+parts:
+  - caption: Grundlagen
+    chapters:
+    - file: 01_BASICS/0_Einfuehrung_Inhalt
+    - file: 01_BASICS/1_Variablen
+    - file: 01_BASICS/2_0_Datentypen
+      sections:
+      - file: 01_BASICS/2_1_Numerische_Datentypen
+      - file: 01_BASICS/2_2_0_Sequentielle_Datentypen
+      - file: 01_BASICS/2_2_1_Listen_Tupel
+      - file: 01_BASICS/2_2_2_Strings
+      - file: 01_BASICS/2_3_Dictionaries
+      - file: 01_BASICS/2_4_Mengen
+    - file: 01_BASICS/3_1_Eingaben
+      sections:
+      - file: 01_BASICS/3_2_GUI
+    - file: 01_BASICS/4_Kontrollstrukturen
+    - file: 01_BASICS/5_Dateien_lesen_schreiben
+    - file: 01_BASICS/6_Funktionen
+    - file: 01_BASICS/7_Exceptions.ipynb
+    - file: 01_BASICS/8_1_Objektorientierte_Programmierung
+      sections:
+      - file: 01_BASICS/8_2_Methoden_Attribute
+      - file: 01_BASICS/8_3_Datenkapselung
+      - file: 01_BASICS/8_4_Vererbung
+    - file: 01_BASICS/9_Threads
+  - caption: Anwendung
+    chapters:
+    - file: 02_RGB_MATRIX/0_ABLAUF
+    - file: 02_RGB_MATRIX/1_EINFUEHRUNG
+    - file: 02_RGB_MATRIX/2_ANSTEUERUNG
+    - file: 02_RGB_MATRIX/3_MATRIX
+    - file: 02_RGB_MATRIX/4_STATISCHE_MUSTER
+    - file: 02_RGB_MATRIX/5_DYNAMISCHE_MUSTER
+    - file: 02_RGB_MATRIX/6_PNG2RGB
+    - file: 02_RGB_MATRIX/7_TXT2RGB.ipynb
+    - file: 02_RGB_MATRIX/8_PYGAME2RGB
+    - file: 02_RGB_MATRIX/9_ZUSATZAUFGABEN
